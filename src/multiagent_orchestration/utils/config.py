@@ -89,14 +89,15 @@ class Config:
     
     def _load_from_env(self) -> None:
         """Load configuration from environment variables."""
-        # System
+        # System - Check if environment variable exists and use it if it does
         if env_val := os.getenv("ORCHESTRATION_ENV"):
             self.config["system"]["environment"] = env_val
         
-        # Logging
+        # Logging - Check if log level is set in environment
         if env_val := os.getenv("LOG_LEVEL"):
             self.config["logging"]["level"] = env_val
         
+        # Check if JSON format preference is set in environment
         if env_val := os.getenv("LOG_JSON"):
             self.config["logging"]["json_format"] = env_val.lower() == "true"
     

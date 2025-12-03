@@ -3,7 +3,12 @@
 import logging
 import sys
 from typing import Optional
-from pythonjsonlogger import jsonlogger
+
+try:
+    from pythonjsonlogger import jsonlogger
+except ImportError:
+    # Fallback if python-json-logger is not installed
+    jsonlogger = None
 
 
 def setup_logger(
@@ -33,7 +38,7 @@ def setup_logger(
     handler.setLevel(level)
     
     # Set formatter
-    if json_format:
+    if json_format and jsonlogger is not None:
         formatter = jsonlogger.JsonFormatter(
             "%(asctime)s %(name)s %(levelname)s %(message)s"
         )

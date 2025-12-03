@@ -1,0 +1,65 @@
+# Example Configuration for Multi-Agent Orchestration System
+
+system:
+  name: "MultiAgent Orchestration System"
+  version: "0.1.0"
+  environment: "development"  # development, staging, production
+
+agents:
+  chief:
+    enabled: true
+    max_concurrent_tasks: 100
+    monitoring_interval: 60  # seconds
+  
+  slave:
+    enabled: true
+    auto_register: true
+    heartbeat_interval: 30  # seconds
+
+protocols:
+  a2a:
+    queue_size: 1000
+    timeout: 30  # seconds
+    retry_attempts: 3
+    retry_delay: 5  # seconds
+  
+  mcp:
+    context_size: 10000
+    history_size: 100
+    state_persistence: false
+
+interfaces:
+  employee:
+    enabled: true
+    session_timeout: 3600  # seconds (1 hour)
+    max_concurrent_sessions: 1000
+    authentication_required: true
+  
+  customer:
+    enabled: true
+    guest_access: true
+    session_timeout: 1800  # seconds (30 minutes)
+    max_concurrent_sessions: 5000
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  json_format: true
+  file: null  # Set to path for file logging
+  console: true
+
+departments:
+  hr:
+    enabled: true
+    agent_count: 2
+  
+  finance:
+    enabled: true
+    agent_count: 2
+  
+  support:
+    enabled: true
+    agent_count: 3
+  
+  operations:
+    enabled: true
+    agent_count: 2
